@@ -1,0 +1,7 @@
+{
+  "name": "consultaApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
