@@ -12,8 +12,8 @@ export class OptionsConPage{
   consultas: any[] = [];
   constructor(
     private alertaControl:AlertController,
-    private toastControl: ToastController
-    ,private actionSheetControl: ActionSheetController
+    private toastControl: ToastController,
+    private actionSheetControl: ActionSheetController,
     ){}
 
 async adicionarConsulta(){
@@ -42,14 +42,6 @@ async adicionarConsulta(){
 
  async addConsulta(dadoscon: any[]) {
   if (dadoscon.length < 1){
-    const toast = await this.toastControl.create({
-      message: 'Informe o que precisa fazer',
-      duration: 2000,
-      position: 'middle',
-      color:'primary'
-    });  
-    toast.present();
-    return;
   }
   let consulta = {nome: dadoscon.novaCon, data: dadoscon.date, feito: false};
   this.consultas.push(consulta);
