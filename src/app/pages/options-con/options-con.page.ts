@@ -16,7 +16,7 @@ export class OptionsConPage{
     private actionSheetControl: ActionSheetController,
     ){}
 
-async adicionarConsulta(){
+  async adicionarConsulta(){
   const alerta = await this.alertaControl.create({
     header:'Qual consulta deseja marcar?',
     subHeader:'Obs: Somente as consultas disponiveis.',

@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'form-con',
     loadChildren: () => import('./pages/form-con/form-con.module').then( m => m.FormConPageModule)
+  },
+  {
+    path: 'form-con',
+    loadChildren: () => import('./pages/form-con/form-con.module').then( m => m.FormConPageModule)
   }
 ];
 
