@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController, ToastController, ActionSheetController, } from '@ionic/angular';
+import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'app-options-con',
@@ -8,34 +9,30 @@ import { AlertController, ToastController, ActionSheetController, } from '@ionic
 })
 export class OptionsConPage{
 
-  tarefas: any[] = [];
+  consultas: any[] = [];
   constructor(
     private alertaControl:AlertController,
     private toastControl: ToastController
     ,private actionSheetControl: ActionSheetController
-    ){// os comandos desta sessão são executados durante o load da página.
-      
-    }
+    ){}
 
-async adicionarTarefa(){
+async adicionarConsulta(){
   const alerta = await this.alertaControl.create({
     header:'Qual consulta deseja marcar?',
-    subHeader:'Somente as consultas disponiveis.',
+    subHeader:'Obs: Somente as consultas disponiveis.',
     inputs: [
-      {name: 'nova',type: 'text'},
-      {name: 'hour',type: 'datetime-local'},
+      {name: 'novaCon',type: 'text' , placeholder: 'Ex: Dentista'},
+      {name: 'date',type:'text' , placeholder: 'Data e hora. Ex: 10/04/2020 14:00'},
     ],  
     buttons:[
       {text:'Cancelar',role:'cancel', cssClass:"secondary", 
       handler: ()=>{
-        // caso o usuário clique em cancelar???
-        console.log('Acho que você clicou em cancelar?!?!?!');
+        console.log('Você clicou em cancelar?');
       }}
     ,{
       text: 'Ok', 
       handler: (form) =>{
-       //debugger; 
-       this.addTarefa(form.nova);
+       this.addConsulta(form);
       }
     }
   ]
@@ -43,16 +40,8 @@ async adicionarTarefa(){
   await alerta.present();
 }
 
-async callData(){
-  const alerta = await this.alertaControl.create({
-    inputs: [
-      {name: 'data',type: 'date'},
-    ],  
-    
-  }); 
-}
- async addTarefa(nova: string) {
-  if (nova.trim().length < 1){
+ async addConsulta(dadoscon: any[]) {
+  if (dadoscon.length < 1){
     const toast = await this.toastControl.create({
       message: 'Informe o que precisa fazer',
       duration: 2000,
@@ -62,21 +51,23 @@ async callData(){
     toast.present();
     return;
   }
-  let tarefa = {nome: nova, feito: false};
-  //debugger;
-  this.tarefas.push(tarefa);
-}//final do método addTarefa
+  let consulta = {nome: dadoscon.novaCon, data: dadoscon.date, feito: false};
+  this.consultas.push(consulta);
+}//final do método
 
+excluirConsulta(consulta){
 
+}
 
-async abrirAcoes(tarefinha:any){
+async abrirAcoes(confirmar:any){
   const actionsheet = await this.actionSheetControl.create({
     header: "Deseja marcar sua consulta?",
-    buttons: [{
-      text: tarefinha.feito ? 'Desmarcar' : 'Marcar',
-      icon: tarefinha.feito ? 'radio-button-off' : 'checkmark-circle',
+    buttons: [{text:confirmar.data}
+      ,{
+      text: confirmar.feito ? 'Desmarcar' : 'Marcar',
+      icon: confirmar.feito ? 'radio-button-off' : 'checkmark-circle',
       handler:()=>{
-        tarefinha.feito = !tarefinha.feito; // inverte o valor de task
+        confirmar.feito = !confirmar.feito; // inverte o valor de task
       }
      },
    {
