@@ -15,7 +15,7 @@ export class OptionsConPage{
     private toastControl: ToastController,
     private actionSheetControl: ActionSheetController,
     ){}
-
+//ola
   async adicionarConsulta(){
   const alerta = await this.alertaControl.create({
     header:'Qual consulta deseja marcar?',
